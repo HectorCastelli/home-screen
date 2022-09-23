@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap" rel="stylesheet">
+  <style>
+    * {
+
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      background-image: url(https://via.placeholder.com/1920?text=Loading);
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    #title {
+      position: absolute;
+      bottom: 1em;
+      right: 2em;
+      text-align: right;
+      opacity: 80%;
+      color: lightgray;
+      text-shadow: 2px 8px 6px rgba(0, 0, 0, 0.2), 0px -5px 35px rgba(255, 255, 255, 0.3);
+    }
+
+
+    * {
+      font-family: 'Comfortaa', cursive;
+      font-weight: normal;
+    }
+
+    .title-text {
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <span id="title">
+    <h1 class="title-text" id="clock">loading...</h1>
+  </span>
+</body>
+
+<script>
+  const random_image_url = 'https://source.unsplash.com/collection/1065976/1920x1080';
+  function set_background() {
+    console.log("Changing background...")
+    var request_image = new Request(random_image_url);
+    fetch(request_image)
+      .then((response) => document.body.style.backgroundImage = `url(${response.url})`)
+      .finally(() => setTimeout(set_background, 10 * 60 * 1000));
+  }
+
+  set_background();
+
+  function refresh_clock() {
+    var date = new Date();
+    var h = date.getHours(); // 0 - 23
+    var m = date.getMinutes(); // 0 - 59
+
+    h = (h < 10) ? "0" + h : h;
+    m = (m < 10) ? "0" + m : m;
+
+    var time = `${h}:${m}`;
+    document.getElementById("clock").innerText = time;
+    document.getElementById("clock").textContent = time;
+
+    setTimeout(refresh_clock, 10000);
+
+  }
+
+  refresh_clock();
+
+</script>
+
+</html>
