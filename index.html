@@ -17,9 +17,11 @@
       background-image: url(https://via.placeholder.com/1000?text=Loading);
       background-repeat: no-repeat;
       background-size: cover;
+      background-position: center;
     }
 
     #title {
+      display: none;
       position: absolute;
       bottom: 1em;
       right: 2em;
@@ -48,9 +50,36 @@
 </body>
 
 <script>
+  const images = [
+    {
+      url: "",
+      title: "",
+      author: "",
+    }
+  ]
+
+
   // const resolution = "1440x900";
   const resolution = "1920x1080";
-  const random_image_url = `https://source.unsplash.com/collection/1065976/${resolution}`;
+  const collections = [
+    "55936315",
+    "Pd_95mpvZyo",
+    "3348849",
+    "10721391",
+    "htKa6vJwPZk",
+    "9465688",
+    "3802299",
+    "cNb3djajkLI",
+    "8960228",
+    "8297297",
+    "2467308",
+    "fXLWr4B0J8Y",
+  ];
+  function random_collection() {
+    return collections[Math.floor((Math.random() * collections.length))];
+  }
+
+  const random_image_url = `https://source.unsplash.com/collection/${random_collection()}/${resolution}`;
   function set_background() {
     console.log("Changing background...")
     var request_image = new Request(random_image_url);
