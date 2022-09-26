@@ -4,110 +4,327 @@
 <head>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
   <style>
     * {
-
-      box-sizing: border-box
+      margin: 0;
+      box-sizing: border-box;
+      font-family: 'Caveat', cursive;
     }
 
     body {
-      margin: 0;
-      min-height: 100vh;
-      background-image: url(https://via.placeholder.com/1000?text=Loading);
+      height: 100vh;
+    }
+
+    #image-blur {
+      display: block;
+      height: 100%;
+      width: 100%;
+      filter: blur(8px);
+      -webkit-filter: blur(8px);
+      background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
+      z-index: 0;
+
+      /* Change by code: */
+      background-image: url("https://picsum.photos/200/300");
+    }
+
+    #image {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+
+      display: block;
+      height: 100%;
+      width: 100%;
       background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+
+      z-index: 1;
+    }
+
+    .metadata {
+      opacity: 80%;
+      position: absolute;
+      bottom: 0.5em;
+      right: 0.5em;
+      padding: 1rem 0.5rem;
+      color: grey;
+      background-color: whitesmoke;
+      border-radius: 10px;
+      outline: 3px solid #000;
+      outline-offset: 1px;
+      z-index: 2;
+      text-align: center;
     }
 
     #title {
-      display: none;
-      position: absolute;
-      bottom: 1em;
-      right: 2em;
-      text-align: right;
-      opacity: 80%;
-      color: lightgray;
-      text-shadow: 2px 8px 6px rgba(0, 0, 0, 0.2), 0px -5px 35px rgba(255, 255, 255, 0.3);
+      font-weight: 700;
+      font-size: 1.5rem;
     }
 
-
-    * {
-      font-family: 'Comfortaa', cursive;
-      font-weight: normal;
-    }
-
-    .title-text {
-      font-weight: bold;
+    #author {
+      font-size: 0.85rem;
     }
   </style>
 </head>
 
 <body>
-  <span id="title">
-    <h1 class="title-text" id="clock">loading...</h1>
-  </span>
+  <span id="image-blur"></span>
+  <span id="image"></span>
+  <div class="metadata">
+    <h1 id="title">Title</h1>
+    <h2 id="author">Author</h2>
+  </div>
 </body>
 
 <script>
   const images = [
     {
-      url: "",
-      title: "",
-      author: "",
-    }
+      url: "https://collections.louvre.fr/media/cache/original/03/48/79/00/AGO034879-000_PE.jpg",
+      title: "Le parc de l'asile Saint-Paul",
+      author: "Blanche Derousse",
+    },
+    {
+      url: "https://collections.louvre.fr/media/cache/original/0000000021/0000066723/0000387005_OG.JPG",
+      title: "La Joconde",
+      author: "Leonardo da Vinci"
+    },
+    {
+      url: "https://collections.louvre.fr/media/cache/large/0000000021/0000277627/0000625031_OG.JPG",
+      title: "Vénus de Milo",
+      author: "Mélos"
+    },
+    {
+      url: "https://collections.louvre.fr/media/cache/large/0000000021/0000066136/0000738682_OG.JPG",
+      title: "Table peinte illustrant l'Histoire de David",
+      author: "Hans Sebald Beham"
+    },
+    {
+      url: "https://collections.louvre.fr/media/cache/large/0000000021/0000065872/0000168915_OG.JPG",
+      title: "La Liberté guidant le peuple",
+      author: "Eugène Delacroix"
+    },
+    {
+      url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/2560px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
+      title: "The Starry Night",
+      author: "Vincent van Gogh"
+    },
+    {
+      url: "https://upload.wikimedia.org/wikipedia/commons/e/e7/Vincent_van_Gogh_-_Green_Field_-_Google_Art_Project.jpg",
+      title: "Champ de blé vert avec cyprès",
+      author: "Vincent van Gogh"
+    },
+    {
+      url: "https://upload.wikimedia.org/wikipedia/commons/0/0b/Sandro_Botticelli_-_La_nascita_di_Venere_-_Google_Art_Project_-_edited.jpg",
+      title: "Nascita di Venere",
+      author: "Sandro Botticelli"
+    },
+    {
+      url: "https://upload.wikimedia.org/wikipedia/commons/e/e2/Judith_1_%28cropped%29.jpg",
+      title: "Judith und Holofernes",
+      author: "Gustav Klimt"
+    },
+    {
+      url: "https://upload.wikimedia.org/wikipedia/commons/4/40/The_Kiss_-_Gustav_Klimt_-_Google_Cultural_Institute.jpg",
+      title: "Der Kuss",
+      author: "Gustav Klimt"
+    },
+    {
+      url: "https://upload.wikimedia.org/wikipedia/commons/7/7d/A_Sunday_on_La_Grande_Jatte%2C_Georges_Seurat%2C_1884.jpg",
+      title: "Un dimanche après-midi à l'Île de la Grande Jatte",
+      author: "Georges Seurat"
+    },
+    {
+      url: "https://upload.wikimedia.org/wikipedia/en/4/4c/Les_Demoiselles_d%27Avignon.jpg",
+      title: "Les Demoiselles d'Avignon",
+      author: "Pablo Picasso"
+    },
+    {
+      url: "https://upload.wikimedia.org/wikipedia/commons/5/5a/The_Night_Watch_-_HD.jpg",
+      title: "De Nachtwacht",
+      author: "Rembrandt van Rijn"
+    },
+    {
+      url: "https://upload.wikimedia.org/wikipedia/commons/4/40/Auguste_Renoir_-_Dance_at_Le_Moulin_de_la_Galette_-_Mus%C3%A9e_d%27Orsay_RF_2739_%28derivative_work_-_AutoContrast_edit_in_LCH_space%29.jpg",
+      title: "Bal du moulin de la Galette",
+      author: "Pierre-Auguste Renoir"
+    },
+    {
+      url: "https://upload.wikimedia.org/wikipedia/commons/5/59/Monet_-_Impression%2C_Sunrise.jpg",
+      title: "Impression, soleil levant",
+      author: "Claude Monet"
+    },
+    {
+      url: "https://en.wikipedia.org/wiki/Haystacks_(Monet_series)#/media/File:Claude_Monet_-_Stacks_of_Wheat_(End_of_Summer)_-_1985.1103_-_Art_Institute_of_Chicago.jpg",
+      title: "Wheatstacks (End of Summer)",
+      author: "Claude Monet"
+    },
+    {
+      url: "Nighthawks",
+      title: "Nighthawks",
+      author: "Edward Hopper"
+    },
+    {
+      url: "https://upload.wikimedia.org/wikipedia/commons/8/88/Hieronymus_Bosch_-_The_Garden_of_Earthly_Delights_-_Garden_of_Earthly_Delights_%28Ecclesia%27s_Paradise%29.jpg",
+      title: "The Garden of Earthly Delights (Center Panel)",
+      author: "Jheronimus Bosch"
+    },
+    {
+      url: "https://upload.wikimedia.org/wikipedia/commons/0/07/CAPPELLA_SISTINA_Ceiling.jpg",
+      title: "Soffitto della Cappella Sistina",
+      author: "Michelangelo di Lodovico"
+    },
+    {
+      url: "https://upload.wikimedia.org/wikipedia/commons/1/18/Last_Judgement_%28Michelangelo%29.jpg",
+      title: "Il Giudizio Universale",
+      author: "Michelangelo di Lodovico"
+    },
+    {
+      url: "https://upload.wikimedia.org/wikipedia/en/c/c0/Duchamp_-_Nude_Descending_a_Staircase.jpg",
+      title: "Nu descendant un escalier n° 2",
+      author: "Marcel Duchamp"
+    },
+    {
+      url: "https://upload.wikimedia.org/wikipedia/commons/4/4a/Jean_Auguste_Dominique_Ingres%2C_La_Grande_Odalisque%2C_1814.jpg",
+      title: "Grande Odalisque",
+      author: "Jean Auguste Dominique Ingres"
+    },
+    {
+      url: "https://upload.wikimedia.org/wikipedia/commons/b/b9/Caspar_David_Friedrich_-_Wanderer_above_the_sea_of_fog.jpg",
+      title: "Der Wanderer über dem Nebelmeer",
+      author: "Caspar David Friedrich"
+    },
+    {
+      url: "https://upload.wikimedia.org/wikipedia/commons/2/21/Caspar_David_Friedrich_-_Der_M%C3%B6nch_am_Meer_-_Google_Art_Project.jpg",
+      title: "Der Mönch am Meer",
+      author: "Caspar David Friedrich"
+    },
+    {
+      url: "https://upload.wikimedia.org/wikipedia/commons/4/43/Joean_Honor%C3%A9_Fragonard_-_The_Swing.jpg",
+      title: "L'Escarpolette",
+      author: "Jean-Honoré Fragonard"
+    },
+    {
+      url: "https://upload.wikimedia.org/wikipedia/commons/6/6b/Vassily_Kandinsky%2C_1908_-_Munich-Schwabing_with_the_Church_of_St-Ursula.jpg",
+      title: "München-Schwabing mit der Kirche St. Ursula",
+      author: "Wassily Kandinsky"
+    },
+    {
+      url: "https://upload.wikimedia.org/wikipedia/commons/c/c4/Vassily_Kandinsky%2C_1923_-_On_White_II.jpg",
+      title: "On White II",
+      author: "Wassily Kandinsky"
+    },
+    {
+      url: "https://upload.wikimedia.org/wikipedia/commons/b/b4/Vassily_Kandinsky%2C_1913_-_Composition_7.jpg",
+      title: "Composition VII",
+      author: "Wassily Kandinsky"
+    },
+    // {
+    //   url: "",
+    //   title: "",
+    //   author: ""
+    // },
+    // {
+    //   url: "",
+    //   title: "",
+    //   author: ""
+    // },
+    // {
+    //   url: "",
+    //   title: "",
+    //   author: ""
+    // },
+    // {
+    //   url: "",
+    //   title: "",
+    //   author: ""
+    // },
+    // {
+    //   url: "",
+    //   title: "",
+    //   author: ""
+    // },
+    // {
+    //   url: "",
+    //   title: "",
+    //   author: ""
+    // },
+    // {
+    //   url: "",
+    //   title: "",
+    //   author: ""
+    // },
+    // {
+    //   url: "",
+    //   title: "",
+    //   author: ""
+    // },
+    // {
+    //   url: "",
+    //   title: "",
+    //   author: ""
+    // },
+    // {
+    //   url: "",
+    //   title: "",
+    //   author: ""
+    // },
+    // {
+    //   url: "",
+    //   title: "",
+    //   author: ""
+    // },
+    // {
+    //   url: "",
+    //   title: "",
+    //   author: ""
+    // },
+    // {
+    //   url: "",
+    //   title: "",
+    //   author: ""
+    // },
+    // {
+    //   url: "",
+    //   title: "",
+    //   author: ""
+    // },
   ]
 
-
-  // const resolution = "1440x900";
-  const resolution = "1920x1080";
-  const collections = [
-    "55936315",
-    "Pd_95mpvZyo",
-    "3348849",
-    "10721391",
-    "htKa6vJwPZk",
-    "9465688",
-    "3802299",
-    "cNb3djajkLI",
-    "8960228",
-    "8297297",
-    "2467308",
-    "fXLWr4B0J8Y",
-  ];
-  function random_collection() {
-    return collections[Math.floor((Math.random() * collections.length))];
+  function random_from(array) {
+    return array[Math.floor((Math.random() * array.length))];
   }
 
-  const random_image_url = `https://source.unsplash.com/collection/${random_collection()}/${resolution}`;
-  function set_background() {
-    console.log("Changing background...")
-    var request_image = new Request(random_image_url);
-    fetch(request_image)
-      .then((response) => document.body.style.backgroundImage = `url(${response.url})`)
-      .finally(() => setTimeout(set_background, 10 * 60 * 1000));
+  function set_image(url) {
+    const image_blur = document.getElementById('image-blur')
+    image_blur.style.backgroundImage = `url(${url})`;
+
+    const image = document.getElementById('image')
+    image.style.backgroundImage = `url(${url})`;
   }
 
-  set_background();
-
-  function refresh_clock() {
-    var date = new Date();
-    var h = date.getHours(); // 0 - 23
-    var m = date.getMinutes(); // 0 - 59
-
-    h = (h < 10) ? "0" + h : h;
-    m = (m < 10) ? "0" + m : m;
-
-    var time = `${h}:${m}`;
-    document.getElementById("clock").innerText = time;
-    document.getElementById("clock").textContent = time;
-
-    setTimeout(refresh_clock, 10000);
-
+  function set_metadata(title, author) {
+    document.getElementById('title').innerText = title || "Untitled";
+    document.getElementById('author').innerText = author || "Unknown";
   }
 
-  refresh_clock();
+  function change_image() {
+    console.log("changing image...")
+    const new_image = random_from(images);
+    console.log("Changing to ", new_image);
 
+    set_image(new_image.url);
+    set_metadata(new_image.title, new_image.author);
+
+    setTimeout(change_image, 10 * 60 * 1000);
+  }
+  change_image();
 </script>
 
 </html>
